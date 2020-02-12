@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {Card, Button, notification } from "antd";
-import "./ui.less"
+import "./ui.less";
 
 class Notifications extends Component {
   constructor(props) {

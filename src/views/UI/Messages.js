@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {Card, Button, message } from "antd";
-import "./ui.less"
+import "./ui.less";
 
 class Messages extends Component {
   constructor(props) {

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {Card, Tabs, Icon, message } from "antd";
-import "./ui.less"
+import "./ui.less";
 
 class Tabses extends Component {
   constructor(props) {
@@ -59,8 +59,8 @@ class Tabses extends Component {
           </Tabs>
         </Card>
         <Card title='Tab可编辑的页签' className='card-wrap'>
-          <Tabs type='editable-card' onChange={this.handleCallback}
-                onChange={this.onChange} activeKey={this.state.activeKey}
+          <Tabs type='editable-card' onChange={this.onChange}
+                activeKey={this.state.activeKey}
                 onEdit={this.onEdit}
           >
             {

@@ -11,6 +11,8 @@ import Loadings from "./views/UI/Loadings";
 import Notifications from "./views/UI/Notifications";
 import Messages from "./views/UI/Messages";
 import Tabs from "./views/UI/Tabses";
+import Galleries from "./views/UI/Galleries";
+import Carousels from "./views/UI/Carousels";
 
 class Router extends Component {
   render() {
@@ -28,6 +30,8 @@ class Router extends Component {
                 <Route path='/admin/ui/notification' component={Notifications}/>
                 <Route path='/admin/ui/messages' component={Messages}/>
                 <Route path='/admin/ui/Tabs' component={Tabs}/>
+                <Route path='/admin/ui/gallery' component={Galleries}/>
+                <Route path='/admin/ui/carousel' component={Carousels}/>
                 <Route component={NoMatch}/>
               </Switch>
             </Admin>
