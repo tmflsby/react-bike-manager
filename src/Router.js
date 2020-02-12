@@ -8,6 +8,9 @@ import NoMatch from "./views/NoMatch";
 import Home from "./views/Home";
 import Modals from "./views/UI/Modals";
 import Loadings from "./views/UI/Loadings";
+import Notifications from "./views/UI/Notifications";
+import Messages from "./views/UI/Messages";
+import Tabs from "./views/UI/Tabses";
 
 class Router extends Component {
   render() {
@@ -22,6 +25,9 @@ class Router extends Component {
                 <Route path='/admin/ui/buttons' component={Buttons}/>
                 <Route path='/admin/ui/modals' component={Modals}/>
                 <Route path='/admin/ui/loadings' component={Loadings}/>
+                <Route path='/admin/ui/notification' component={Notifications}/>
+                <Route path='/admin/ui/messages' component={Messages}/>
+                <Route path='/admin/ui/Tabs' component={Tabs}/>
                 <Route component={NoMatch}/>
               </Switch>
             </Admin>
