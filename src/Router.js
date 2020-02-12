@@ -6,6 +6,7 @@ import Admin from "./Admin";
 import Buttons from "./views/UI/Buttons";
 import NoMatch from "./views/NoMatch";
 import Home from "./views/Home";
+import Modals from "./views/UI/Modals";
 
 class Router extends Component {
   render() {
@@ -18,6 +19,7 @@ class Router extends Component {
               <Switch>
                 <Route path='/admin/home' component={Home}/>
                 <Route path='/admin/ui/buttons' component={Buttons}/>
+                <Route path='/admin/ui/modals' component={Modals}/>
                 <Route component={NoMatch}/>
               </Switch>
             </Admin>
