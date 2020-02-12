@@ -10,7 +10,7 @@ class Header extends Component {
     this.state = {
       userName: '帅🐏'
     };
-    setInterval(() => {
+    this.timer = setInterval(() => {
       let sysTime = moment().format('MMMM Do YYYY, h:mm:ss a');
       this.setState({
         sysTime
@@ -58,6 +58,10 @@ class Header extends Component {
         weather: data.weather
       })
     })
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
   }
 }
 
