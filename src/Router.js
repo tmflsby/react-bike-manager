@@ -13,6 +13,8 @@ import Messages from "./views/UI/Messages";
 import Tabs from "./views/UI/Tabses";
 import Galleries from "./views/UI/Galleries";
 import Carousels from "./views/UI/Carousels";
+import FormLogin from "./views/Form/FormLogin";
+import FormRegister from "./views/Form/FormRegister";
 
 class Router extends Component {
   render() {
@@ -32,6 +34,8 @@ class Router extends Component {
                 <Route path='/admin/ui/Tabs' component={Tabs}/>
                 <Route path='/admin/ui/gallery' component={Galleries}/>
                 <Route path='/admin/ui/carousel' component={Carousels}/>
+                <Route path='/admin/form/login' component={FormLogin}/>
+                <Route path='/admin/form/reg' component={FormRegister}/>
                 <Route component={NoMatch}/>
               </Switch>
             </Admin>
