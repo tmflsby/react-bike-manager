@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Button, Card, Form, Input, Icon, message, Checkbox } from "antd";
+import { Button, Card, Form, Input, Icon, message, Checkbox } from "antd";
 
 class FormLogin extends Component{
   constructor(props) {

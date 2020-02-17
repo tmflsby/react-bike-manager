@@ -15,6 +15,8 @@ import Galleries from "./views/UI/Galleries";
 import Carousels from "./views/UI/Carousels";
 import FormLogin from "./views/Form/FormLogin";
 import FormRegister from "./views/Form/FormRegister";
+import BasicTable from "./views/Table/BasicTable";
+import HighTable from "./views/Table/HighTable";
 
 class Router extends Component {
   render() {
@@ -36,6 +38,8 @@ class Router extends Component {
                 <Route path='/admin/ui/carousel' component={Carousels}/>
                 <Route path='/admin/form/login' component={FormLogin}/>
                 <Route path='/admin/form/reg' component={FormRegister}/>
+                <Route path='/admin/table/basic' component={BasicTable}/>
+                <Route path='/admin/table/high' component={HighTable}/>
                 <Route component={NoMatch}/>
               </Switch>
             </Admin>
