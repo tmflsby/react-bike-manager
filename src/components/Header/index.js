@@ -11,7 +11,7 @@ class Header extends Component {
       userName: '帅🐏'
     };
     this.timer = setInterval(() => {
-      let systemTime = moment().format('YYYY-MM-DD, hh:mm:ss');
+      let systemTime = moment().format('YYYY-MM-DD, HH:mm:ss');
       this.setState({
         systemTime
       });
