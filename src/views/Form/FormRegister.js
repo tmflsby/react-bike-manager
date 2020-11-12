@@ -8,9 +8,53 @@ import {
 class FormRegister extends Component {
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
     this.state = {};
+    this.beforeUpload = this.beforeUpload.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  getBase64(img, callback) {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => callback(reader.result));
+    reader.readAsDataURL(img);
+  }
+
+  beforeUpload = (file) => {
+    const isJPG = file.type === 'image/jpeg';
+    if (!isJPG) {
+      message.error('您只能上传JPG文件!');
+    }
+    const isLt2M = file.size / 1024 / 1024 < 2;
+    if (!isLt2M) {
+      message.error('图像必须小于2MB!');
+    }
+    return isJPG && isLt2M;
+  }
+
+  handleChange(info) {
+    if (info.file.status === 'uploading') {
+      this.setState({ loading: true });
+      return;
+    }
+    if (info.file.status === 'done') {
+      // Get this url from response in real world.
+      this.getBase64(info.file.originFileObj, imageUrl =>
+        this.setState({
+          userImg: imageUrl,
+          loading: false,
+        }),
+      );
+    }
+  }
+
+  handleSubmit() {
+    let userInfo = this.props.form.getFieldsValue();
+    this.props.form.validateFields((err) => {
+      if (!err) {
+        message.success(`${userInfo.userName} 恭喜您，您通过本次表单注册组件学习，当前密码为：${userInfo.userPwd}` )
+      }
+    })
   }
 
   render() {
@@ -149,12 +193,7 @@ class FormRegister extends Component {
                 getFieldDecorator('address', {
                   initialValue: '西班牙巴塞罗那市诺坎普球场'
                 })(
-                  <Input.TextArea autoSize={
-                    {
-                      minRows: 4,
-                      maxRows: 6
-                    }
-                  }/>
+                  <Input.TextArea autoSize={{minRows: 4, maxRows: 6}}/>
                 )
               }
             </Form.Item>
@@ -171,11 +210,12 @@ class FormRegister extends Component {
               {
                 getFieldDecorator('userImg', {
                   initialValue: true,
-                  valuePropName: 'fileList'
+                  valuePropName: 'file'
                 })(
                   <Upload listType='picture-card' showUploadList={false}
-                          action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                          action="//jsonplaceholder.typicode.com/posts/"
                           onChange={this.handleChange}
+                          beforeUpload={this.beforeUpload}
                   >
                     {
                       this.state.userImg ? <img src={this.state.userImg} alt=""/> : <Icon type='plus'/>
@@ -190,8 +230,7 @@ class FormRegister extends Component {
                   initialValue: true,
                   valuePropName: 'checked'
                 })(
-                  // eslint-disable-next-line jsx-a11y/anchor-is-valid
-                  <Checkbox>我已阅读<a href='#'>慕课协议</a></Checkbox>
+                  <Checkbox>我已阅读<a href='#/admin/form/reg'>慕课协议</a></Checkbox>
                 )
               }
             </Form.Item>
@@ -206,37 +245,6 @@ class FormRegister extends Component {
         </Card>
       </div>
     );
-  }
-
-  handleChange(info) {
-    if (info.file.status === 'uploading') {
-      this.setState({ loading: true });
-      return;
-    }
-    if (info.file.status === 'done') {
-      // Get this url from response in real world.
-      this.getBase64(info.file.originFileObj, imageUrl =>
-        this.setState({
-          userImg: imageUrl,
-          loading: false,
-        }),
-      );
-    }
-  }
-
-  getBase64(img, callback) {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => callback(reader.result));
-    reader.readAsDataURL(img);
-  }
-
-  handleSubmit() {
-    let userInfo = this.props.form.getFieldsValue();
-    this.props.form.validateFields((err) => {
-      if (!err) {
-        message.success(`${userInfo.userName} 恭喜您，您通过本次表单注册组件学习，当前密码为：${userInfo.userPwd}` )
-      }
-    })
   }
 }
 

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Button, Card, message, Modal, Table } from "antd";
-import Axios from "../../axios";
-import Utils from "../../utils/utils";
+import ServiceRequest from "../../serviceRequest";
+import { pagination } from "../../utils/pagination";
 
 class BasicTable extends Component {
   constructor(props) {
@@ -67,10 +67,10 @@ class BasicTable extends Component {
         }
       ]
     };
-    this.handleDelete = this.handleDelete.bind(this);
     this.params = {
       page: 1
-    }
+    };
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
@@ -114,6 +114,63 @@ class BasicTable extends Component {
       dataSource
     });
     this.getMockTableListData();
+  }
+
+  getMockTableListData () {
+    ServiceRequest.axios({
+      url: 'mock/table/list',
+      data: {
+        params: {
+          page: this.params.page
+        },
+        isShowLoading: true
+      }
+    }).then((res) => {
+      console.log(res)
+      res.result.list.map(item => {
+        item.key = item.id;
+        return item;
+      });
+      this.setState({
+        dataSource2: res.result.list,
+        selectedRowKeys: [],
+        selectedRows: null,
+        pagination: pagination(res, current => {
+          this.params.page = current;
+          this.getMockTableListData();
+        })
+      });
+    })
+  }
+
+  onRowClick(record) {
+    let selectKey = [record.key];
+    Modal.info({
+      title: '信息',
+      content: `用户名:${record.userName},地址:${record.address}`
+    });
+    this.setState({
+      selectedRowKeys: selectKey,
+      selectedItem: record
+    });
+  }
+
+  // 多选执行删除动作
+  handleDelete() {
+    let rows = this.state.selectedRows;
+    let ids = [];
+    rows.map(item => {
+      ids.push(item.id);
+      return ids
+    });
+    Modal.confirm({
+      title: '删除提示',
+      content: `你确定要删除${ids.join(',')}吗`,
+      onOk: () => {
+        message.success('删除成功');
+        this.getMockTableListData();
+      }
+    })
   }
 
   render() {
@@ -183,63 +240,6 @@ class BasicTable extends Component {
         </Card>
       </div>
     );
-  }
-
-  getMockTableListData() {
-    let _this = this;
-    Axios.ajax({
-      url: '/table/list',
-      data: {
-        params: {
-          page: this.state.page
-        },
-        isShowLoading: true
-      }
-    }).then((res) => {
-      res.result.list.map(item => {
-        item.key = item.id;
-        return item;
-      });
-      this.setState({
-        dataSource2: res.result.list,
-        selectedRowKeys: [],
-        selectedRows: null,
-        pagination: Utils.pagination(res, current => {
-          _this.params.page = current;
-          this.getMockTableListData();
-        })
-      });
-    })
-  }
-
-  onRowClick(record) {
-    let selectKey = [record.key];
-    Modal.info({
-      title: '信息',
-      content: `用户名:${record.userName},地址:${record.address}`
-    });
-    this.setState({
-      selectedRowKeys: selectKey,
-      selectedItem: record
-    });
-  }
-
-  // 多选执行删除动作
-  handleDelete() {
-    let rows = this.state.selectedRows;
-    let ids = [];
-    rows.map(item => {
-      ids.push(item.id);
-      return ids
-    });
-    Modal.confirm({
-      title: '删除提示',
-      content: `你确定要删除这些数据吗？${ids.join(',')}`,
-      onOk: () => {
-        message.success('删除成功');
-        this.getMockTableListData();
-      }
-    })
   }
 }
 

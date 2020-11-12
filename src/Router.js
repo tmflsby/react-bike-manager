@@ -10,7 +10,7 @@ import Modals from "./views/UI/Modals";
 import Loadings from "./views/UI/Loadings";
 import Notifications from "./views/UI/Notifications";
 import Messages from "./views/UI/Messages";
-import Tabs from "./views/UI/Tabses";
+import Tabs from "./views/UI/Tabs";
 import Galleries from "./views/UI/Galleries";
 import Carousels from "./views/UI/Carousels";
 import FormLogin from "./views/Form/FormLogin";

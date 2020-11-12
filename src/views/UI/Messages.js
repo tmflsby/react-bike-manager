@@ -8,6 +8,10 @@ class Messages extends Component {
     this.showMessage = this.showMessage.bind(this);
   }
 
+  showMessage(type) {
+    message[type]('恭喜你！帅🐏')
+  }
+
   render() {
     return (
       <div>
@@ -20,10 +24,6 @@ class Messages extends Component {
         </Card>
       </div>
     );
-  }
-
-  showMessage(type) {
-    message[type]('恭喜你！帅🐏')
   }
 }
 

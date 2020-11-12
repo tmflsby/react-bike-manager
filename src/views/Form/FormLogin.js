@@ -7,6 +7,14 @@ class FormLogin extends Component{
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  handleSubmit() {
+    let userInfo = this.props.form.getFieldsValue();
+    this.props.form.validateFields((err) => {
+      if (!err) {
+        message.success(`${userInfo.userName} 恭喜您，您通过本次表单组件学习，当前密码为：${userInfo.userPwd}` )
+      }
+    })
+  }
 
   render() {
     const { getFieldDecorator } = this.props.form;
@@ -81,15 +89,6 @@ class FormLogin extends Component{
         </Card>
       </div>
     );
-  }
-
-  handleSubmit() {
-    let userInfo = this.props.form.getFieldsValue();
-    this.props.form.validateFields((err) => {
-      if (!err) {
-        message.success(`${userInfo.userName} 恭喜您，您通过本次表单组件学习，当前密码为：${userInfo.userPwd}` )
-      }
-    })
   }
 }
 

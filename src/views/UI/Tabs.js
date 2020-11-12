@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import {Card, Tabs, Icon, message } from "antd";
 import "./ui.less";
 
-class Tabses extends Component {
+class Tab extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,39 +39,6 @@ class Tabses extends Component {
     this.setState({
       activeKey: this.state.panes[0].key
     });
-  }
-
-  render() {
-    return (
-      <div>
-        <Card title='Tab页签' className='card-wrap'>
-          <Tabs defaultActiveKey='1' onChange={this.handleCallback}>
-            <Tabs.TabPane tab="Tab 1" key="1">Content of Tab Pane 1</Tabs.TabPane>
-            <Tabs.TabPane tab="Tab 2" key="2" disabled>Content of Tab Pane 2</Tabs.TabPane>
-            <Tabs.TabPane tab="Tab 3" key="3">Content of Tab Pane 3</Tabs.TabPane>
-          </Tabs>
-        </Card>
-        <Card title='Tab带图的页签' className='card-wrap'>
-          <Tabs defaultActiveKey='1' onChange={this.handleCallback}>
-            <Tabs.TabPane tab={<span><Icon type='plus'/> Tab 1</span>} key="1">Content of Tab Pane 1</Tabs.TabPane>
-            <Tabs.TabPane tab={<span><Icon type='edit'/> Tab 2</span>} key="2">Content of Tab Pane 2</Tabs.TabPane>
-            <Tabs.TabPane tab={<span><Icon type='delete'/> Tab 3</span>} key="3">Content of Tab Pane 3</Tabs.TabPane>
-          </Tabs>
-        </Card>
-        <Card title='Tab可编辑的页签' className='card-wrap'>
-          <Tabs type='editable-card' onChange={this.onChange}
-                activeKey={this.state.activeKey}
-                onEdit={this.onEdit}
-          >
-            {
-              this.state.panes.map((panel) => {
-                return <Tabs.TabPane tab={panel.title} key={panel.key}>{panel.content}</Tabs.TabPane>
-              })
-            }
-          </Tabs>
-        </Card>
-      </div>
-    );
   }
 
   handleCallback(key) {
@@ -113,6 +80,39 @@ class Tabses extends Component {
     }
     this.setState({ panes, activeKey });
   };
+
+  render() {
+    return (
+      <div>
+        <Card title='Tab页签' className='card-wrap'>
+          <Tabs defaultActiveKey='1' onChange={this.handleCallback}>
+            <Tabs.TabPane tab="Tab 1" key="1">Content of Tab Pane 1</Tabs.TabPane>
+            <Tabs.TabPane tab="Tab 2" key="2" disabled>Content of Tab Pane 2</Tabs.TabPane>
+            <Tabs.TabPane tab="Tab 3" key="3">Content of Tab Pane 3</Tabs.TabPane>
+          </Tabs>
+        </Card>
+        <Card title='Tab带图的页签' className='card-wrap'>
+          <Tabs defaultActiveKey='1' onChange={this.handleCallback}>
+            <Tabs.TabPane tab={<span><Icon type='plus'/> Tab 1</span>} key="1">Content of Tab Pane 1</Tabs.TabPane>
+            <Tabs.TabPane tab={<span><Icon type='edit'/> Tab 2</span>} key="2">Content of Tab Pane 2</Tabs.TabPane>
+            <Tabs.TabPane tab={<span><Icon type='delete'/> Tab 3</span>} key="3">Content of Tab Pane 3</Tabs.TabPane>
+          </Tabs>
+        </Card>
+        <Card title='Tab可编辑的页签' className='card-wrap'>
+          <Tabs type='editable-card' onChange={this.onChange}
+                activeKey={this.state.activeKey}
+                onEdit={this.onEdit}
+          >
+            {
+              this.state.panes.map((panel) => {
+                return <Tabs.TabPane tab={panel.title} key={panel.key}>{panel.content}</Tabs.TabPane>
+              })
+            }
+          </Tabs>
+        </Card>
+      </div>
+    );
+  }
 }
 
-export default Tabses;
+export default Tab;

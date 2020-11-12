@@ -1,4 +1,5 @@
 import Mock from "mockjs";
-import tableList from "./tableList";
+import tableList from "./tableList.json";
 
-Mock.mock('/table/list', 'get', tableList);
+/**Mock table数据*/
+Mock.mock('mock/table/list', 'get', tableList);

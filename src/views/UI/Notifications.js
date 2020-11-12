@@ -8,6 +8,18 @@ class Notifications extends Component {
     this.handleOpenNotification = this.handleOpenNotification.bind(this);
   }
 
+  handleOpenNotification(type, direction) {
+    if (direction) {
+      notification.config({
+        placement: direction
+      });
+    }
+    notification[type]({
+      message: '发工资了',
+      description: '上个月考勤22天，迟到2天，扣工资250元，实发工资一个亿'
+    });
+  }
+
   render() {
     return (
       <div>
@@ -25,18 +37,6 @@ class Notifications extends Component {
         </Card>
       </div>
     );
-  }
-
-  handleOpenNotification(type, direction) {
-    if (direction) {
-      notification.config({
-        placement: direction
-      });
-    }
-    notification[type]({
-      message: '发工资了',
-      description: '上个月考勤22天，迟到2天，扣工资250元，实发工资一个亿'
-    });
   }
 }
 

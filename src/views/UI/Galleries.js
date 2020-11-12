@@ -13,6 +13,24 @@ class Galleries extends Component {
     this.callback = this.callback.bind(this);
   }
 
+  openGallery(currentImg) {
+    this.setState({
+      currentImg: '/gallery/' + currentImg,
+      visible: true
+    });
+  }
+
+  openGallery2(currentImg) {
+    this.setState({
+      currentImg: '/gallery2/' + currentImg,
+      visible: true
+    })
+  }
+
+  callback(key) {
+    console.log(key);
+  }
+
   render() {
     const imgs = [
       ['1.png', '2.png', '3.png', '4.png', '5.png'],
@@ -56,14 +74,14 @@ class Galleries extends Component {
               <Col md={4}>{imgList[4]}</Col>
             </Row>
             <Modal title={'图片画廊'} width={400} height={200}
-              visible={this.state.visible} footer={null}
-              onCancel={() => this.setState({ visible: false })}
+                   visible={this.state.visible} footer={null}
+                   onCancel={() => this.setState({ visible: false })}
             >
               <img src={this.state.currentImg} alt="" style={{ width: '100%' }} />
             </Modal>
           </Tabs.TabPane>
 
-          <Tabs.TabPane tab="邓紫棋" key="2">
+          <Tabs.TabPane tab="邓紫棋 画廊" key="2">
             <Row gutter={15}>
               <Col md={4}>{imgList2[0]}</Col>
               <Col md={5}>{imgList2[1]}</Col>
@@ -72,8 +90,8 @@ class Galleries extends Component {
               <Col md={4}>{imgList2[4]}</Col>
             </Row>
             <Modal title={'图片画廊'} width={400} height={200}
-              visible={this.state.visible} footer={null}
-              onCancel={() => this.setState({ visible: false })}
+                   visible={this.state.visible} footer={null}
+                   onCancel={() => this.setState({ visible: false })}
             >
               <img src={this.state.currentImg} alt="" style={{ width: '100%' }} />
             </Modal>
@@ -81,24 +99,6 @@ class Galleries extends Component {
         </Tabs>
       </Card>
     );
-  }
-
-  openGallery(currentImg) {
-    this.setState({
-      currentImg: '/gallery/' + currentImg,
-      visible: true
-    });
-  }
-
-  openGallery2(currentImg) {
-    this.setState({
-      currentImg: '/gallery2/' + currentImg,
-      visible: true
-    })
-  }
-
-  callback(key) {
-    console.log(key);
   }
 }
 

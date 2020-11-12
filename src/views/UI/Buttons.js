@@ -13,6 +13,18 @@ class Buttons extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  handleCloseLoading () {
+    this.setState({
+      loading: false
+    });
+  }
+
+  handleChange (e) {
+    this.setState({
+      size: e.target.value
+    });
+  }
+
   render() {
     return (
       <div>
@@ -57,18 +69,6 @@ class Buttons extends Component {
         </Card>
       </div>
     );
-  }
-
-  handleCloseLoading () {
-    this.setState({
-      loading: false
-    });
-  }
-
-  handleChange (e) {
-    this.setState({
-      size: e.target.value
-    });
   }
 }
 

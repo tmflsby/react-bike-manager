@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import {Badge, Button, Card, message, Modal, Table} from "antd";
-import Axios from "../../axios";
-import Utils from "../../utils/utils";
+import { Badge, Button, Card, message, Modal, Table } from "antd";
+import ServiceRequest from "../../serviceRequest";
+import { pagination } from "../../utils/pagination";
 
 class HighTable extends Component {
   constructor(props) {
@@ -274,6 +274,50 @@ class HighTable extends Component {
     this.params = {
       page: 1
     };
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+
+  componentDidMount() {
+    this.getMockTableListData();
+  }
+
+  getMockTableListData() {
+    let _this = this;
+    ServiceRequest.axios({
+      url: 'mock/table/list',
+      data: {
+        params: {
+          page: this.state.page
+        },
+        isShowLoading: true
+      }
+    }).then((res) => {
+      res.result.list.map(item => {
+        item.key = item.id;
+        return item;
+      });
+      this.setState({
+        dataSource: res.result.list,
+        selectedRowKeys: [],
+        selectedRows: null,
+        pagination: pagination(res, current => {
+          _this.params.page = current;
+          this.getMockTableListData();
+        })
+      });
+    })
+  }
+
+  // 删除操作
+  handleDelete(item) {
+    Modal.confirm({
+      title: '确认',
+      content: `您确认删除${item.userName}吗`,
+      onOk: () => {
+        message.success('删除成功');
+        this.getMockTableListData();
+      }
+    })
   }
 
   render() {
@@ -307,49 +351,6 @@ class HighTable extends Component {
         </Card>
       </div>
     );
-  }
-
-  componentDidMount() {
-    this.getMockTableListData();
-  }
-
-  getMockTableListData() {
-    let _this = this;
-    Axios.ajax({
-      url: '/table/list',
-      data: {
-        params: {
-          page: this.state.page
-        },
-        isShowLoading: true
-      }
-    }).then((res) => {
-      res.result.list.map(item => {
-        item.key = item.id;
-        return item;
-      });
-      this.setState({
-        dataSource: res.result.list,
-        selectedRowKeys: [],
-        selectedRows: null,
-        pagination: Utils.pagination(res, current => {
-          _this.params.page = current;
-          this.getMockTableListData();
-        })
-      });
-    })
-  }
-
-  // 删除操作
-  handleDelete() {
-    Modal.confirm({
-      title: '确认',
-      content: '宁确认删除吗？',
-      onOk: () => {
-        message.success('删除成功');
-        this.getMockTableListData();
-      }
-    })
   }
 }
 

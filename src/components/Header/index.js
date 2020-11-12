@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import moment from "moment";
 import { Row, Col } from "antd";
-import axios from "../../axios";
+import ServiceRequest from "../../serviceRequest";
 import "./index.less";
 
 class Header extends Component {
@@ -11,13 +11,38 @@ class Header extends Component {
       userName: '帅🐏'
     };
     this.timer = setInterval(() => {
-      let sysTime = moment().format('MMMM Do YYYY, h:mm:ss a');
+      let systemTime = moment().format('YYYY-MM-DD, hh:mm:ss');
       this.setState({
-        sysTime
+        systemTime
       });
-    }, 1000);
+    }, 20);
     this.getWeatherAPIData();
     this.getWeatherAPIData = this.getWeatherAPIData.bind(this);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+
+  getWeatherAPIData() {
+    let city = '武穴';
+    console.log('use jsonp')
+    ServiceRequest.jsonp({
+      url: `http://api.map.baidu.com/telematics/v3/weather?location=${encodeURIComponent(city)}&output=json&ak=3p49MVra6urFRGOT9s8UBWr2`
+    }).then(res => {
+      let currentCity = res.results[0].currentCity;
+      let data = res.results[0].weather_data[0];
+      this.setState({
+        currentCity: currentCity,
+        dayPictureUrl: data.dayPictureUrl,
+        nightPictureUrl: data.nightPictureUrl,
+        temperature: data.temperature,
+        weather: data.weather,
+        wind: data.wind
+      })
+    }).catch(err => {
+      console.log(err);
+    })
   }
 
   render() {
@@ -32,38 +57,22 @@ class Header extends Component {
         <Row className="breadcrumb">
           <Col span={4} className="breadcrumb-title">首页</Col>
           <Col span={20} className="weather">
-            <span className="date">{this.state.sysTime}</span>
+            <span className="date">{this.state.systemTime}</span>
             <span className="weather-detail">{this.state.currentCity}</span>
             <span className="weather-img">
-              <img src={this.state.dayPictureUrl} alt=""/>
+              {
+                (new Date().getHours() > 6 && new Date().getHours() < 18) ?
+                  <img src={this.state.dayPictureUrl} alt=""/> :
+                  <img src={this.state.nightPictureUrl} alt=""/>
+              }
             </span>
-            <span className="weather-detail">{this.state.weather}</span>
+            <span className="weather-detail">
+              {this.state.weather} {this.state.wind} {this.state.temperature}
+            </span>
           </Col>
         </Row>
       </div>
     );
-  }
-
-  getWeatherAPIData() {
-    let city = '武穴';
-    console.log('use jsonp')
-    axios.jsonp({
-      url: `http://api.map.baidu.com/telematics/v3/weather?location=${encodeURIComponent(city)}&output=json&ak=3p49MVra6urFRGOT9s8UBWr2`
-    }).then(res => {
-      let currentCity = res.results[0].currentCity;
-      let data = res.results[0].weather_data[0];
-      this.setState({
-        currentCity: currentCity,
-        dayPictureUrl: data.dayPictureUrl,
-        weather: data.weather
-      })
-    }).catch(err => {
-      console.log(err);
-    })
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timer);
   }
 }
 
