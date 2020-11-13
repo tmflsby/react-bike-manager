@@ -19,6 +19,7 @@ import BasicTable from "./views/Table/BasicTable";
 import HighTable from "./views/Table/HighTable";
 import RichText from "./views/RichText";
 import City from "./views/City";
+import BikeMap from "./views/BikeMap";
 
 class Router extends Component {
   render() {
@@ -44,6 +45,7 @@ class Router extends Component {
                 <Route path='/admin/table/high' component={HighTable}/>
                 <Route path='/admin/rich' component={RichText}/>
                 <Route path='/admin/city' component={City}/>
+                <Route path='/admin/bikeMap' component={BikeMap}/>
                 <Route component={NoMatch}/>
               </Switch>
             </Admin>

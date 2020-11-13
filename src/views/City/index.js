@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Card, Button, Table, Form, Select, Modal, Radio, message } from "antd";
 import moment from "moment";
 import ServiceRequest from "../../serviceRequest";
-import { pagination } from "../../utils/pagination";
+import pagination  from "../../utils/pagination";
 
 /**查询筛选表单*/
 class FilterForm extends Component {

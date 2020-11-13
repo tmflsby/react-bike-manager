@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Badge, Button, Card, message, Modal, Table } from "antd";
 import ServiceRequest from "../../serviceRequest";
-import { pagination } from "../../utils/pagination";
+import pagination  from "../../utils/pagination";
 
 class HighTable extends Component {
   constructor(props) {

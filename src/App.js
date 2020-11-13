@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./mock/mockServer";
 
 class App extends Component {
   render() {

@@ -1,4 +1,4 @@
-export const pagination = (data, callback) => ({
+const pagination = (data, callback) => ({
   onChange: (current) => {
     callback(current);
   },
@@ -7,4 +7,6 @@ export const pagination = (data, callback) => ({
   total: data.result.total,
   showTotal: () => `共${data.result.total}条`,
   showQuickJumper: true
-})
+});
+
+export default pagination;
