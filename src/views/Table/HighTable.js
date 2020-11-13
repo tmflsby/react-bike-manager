@@ -284,8 +284,10 @@ class HighTable extends Component {
   getMockTableListData() {
     let _this = this;
     ServiceRequest.axios({
-      url: 'mock/table/list',
+      url: '/table/high/list',
+      method: 'get',
       data: {
+        isEasyMock: true,
         params: {
           page: this.state.page
         },

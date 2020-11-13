@@ -5,9 +5,17 @@ import { Modal } from "antd";
 
 const _axios = axios.create();
 
-/**拦截器*/
+/**request 拦截器*/
+_axios.interceptors.request.use(config => {
+  // 设置token
+  config.headers.common['Authorization'] = 'token';
+  return config;
+}, error => {
+  return Promise.reject(error);
+});
+
+/**response 拦截器*/
 _axios.interceptors.response.use(response => {
-  console.log('接口请求打印：', response);
   // 如果返回的状态码为200，说明接口请求成功，可以正常拿到数据
   // 否则的话抛出错误
   if (response.status === 200) {
@@ -45,6 +53,7 @@ class ServiceRequest {
   /**axios请求*/
   static axios(options) {
     let loading;
+    let baseAPI = '';
     console.log(options)
 
     /**loading显示*/
@@ -53,12 +62,18 @@ class ServiceRequest {
       loading.style.display = 'block';
     }
 
+    /**Mock 环境地址*/
+    if (options.data.isEasyMock) {
+      baseAPI = 'https://www.easy-mock.com/mock/5c4e75d6afd3a07bd7b6ec70/mockapi'
+    }
+
     return new Promise((resolve, reject) => {
       _axios({
+        baseURL: baseAPI,
         url: options.url,
-        method: 'get',
+        method: options.method,
         timeout: 5000,
-        paras: (options.data && options.data.params) || ''
+        params: (options.data && options.data.params) || ''
       }).then(response => {
         console.log(response)
 

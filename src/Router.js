@@ -18,6 +18,7 @@ import FormRegister from "./views/Form/FormRegister";
 import BasicTable from "./views/Table/BasicTable";
 import HighTable from "./views/Table/HighTable";
 import RichText from "./views/RichText";
+import City from "./views/City";
 
 class Router extends Component {
   render() {
@@ -42,6 +43,7 @@ class Router extends Component {
                 <Route path='/admin/table/basic' component={BasicTable}/>
                 <Route path='/admin/table/high' component={HighTable}/>
                 <Route path='/admin/rich' component={RichText}/>
+                <Route path='/admin/city' component={City}/>
                 <Route component={NoMatch}/>
               </Switch>
             </Admin>

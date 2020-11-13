@@ -118,15 +118,16 @@ class BasicTable extends Component {
 
   getMockTableListData () {
     ServiceRequest.axios({
-      url: 'mock/table/list',
+      url: '/table/list',
+      method: 'get',
       data: {
+        isEasyMock: true,
         params: {
           page: this.params.page
         },
         isShowLoading: true
       }
     }).then((res) => {
-      console.log(res)
       res.result.list.map(item => {
         item.key = item.id;
         return item;
