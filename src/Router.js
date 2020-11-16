@@ -20,6 +20,9 @@ import HighTable from "./views/Table/HighTable";
 import RichText from "./views/RichText";
 import City from "./views/City";
 import BikeMap from "./views/BikeMap";
+import Line from "./views/Echarts/Line";
+import Bar from "./views/Echarts/Bar";
+import Pie from "./views/Echarts/Pie";
 
 class Router extends Component {
   render() {
@@ -46,6 +49,9 @@ class Router extends Component {
                 <Route path='/admin/rich' component={RichText}/>
                 <Route path='/admin/city' component={City}/>
                 <Route path='/admin/bikeMap' component={BikeMap}/>
+                <Route path='/admin/charts/line' component={Line}/>
+                <Route path='/admin/charts/bar' component={Bar}/>
+                <Route path='/admin/charts/pie' component={Pie}/>
                 <Route component={NoMatch}/>
               </Switch>
             </Admin>

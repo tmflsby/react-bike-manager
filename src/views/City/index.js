@@ -205,7 +205,7 @@ class City extends Component {
     this.handleSearch = this.handleSearch.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.requestList();
   }
 
