@@ -62,8 +62,8 @@ class Header extends Component {
             <span className="weather-img">
               {
                 (new Date().getHours() > 6 && new Date().getHours() < 18) ?
-                  <img src={this.state.dayPictureUrl} alt=""/> :
-                  <img src={this.state.nightPictureUrl} alt=""/>
+                  <img width={55} src={this.state.dayPictureUrl} alt=""/> :
+                  <img width={55} src={this.state.nightPictureUrl} alt=""/>
               }
             </span>
             <span className="weather-detail">

@@ -23,6 +23,7 @@ import BikeMap from "./views/BikeMap";
 import Line from "./views/Echarts/Line";
 import Bar from "./views/Echarts/Bar";
 import Pie from "./views/Echarts/Pie";
+import Order from "./views/Order";
 
 class Router extends Component {
   render() {
@@ -52,6 +53,7 @@ class Router extends Component {
                 <Route path='/admin/charts/line' component={Line}/>
                 <Route path='/admin/charts/bar' component={Bar}/>
                 <Route path='/admin/charts/pie' component={Pie}/>
+                <Route path='/admin/order' component={Order}/>
                 <Route component={NoMatch}/>
               </Switch>
             </Admin>

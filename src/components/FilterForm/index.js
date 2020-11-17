@@ -35,7 +35,7 @@ class FilterForm extends Component {
               <Form.Item style={{padding: 0, margin: 0}}>
                 {
                   getFieldDecorator('start_time')(
-                    <DatePicker showTime format="YYYY-MM-DDD HH:mm:ss"
+                    <DatePicker showTime format="YYYY-MM-DD HH:mm:ss"
                                 placeholder="开始时间" style={{width: 170}}
                     />
                   )
@@ -45,7 +45,7 @@ class FilterForm extends Component {
               <Form.Item style={{padding: 0, margin: 0}}>
                 {
                   getFieldDecorator('end_time')(
-                    <DatePicker showTime format="YYYY-MM-DDD HH:mm:ss"
+                    <DatePicker showTime format="YYYY-MM-DD HH:mm:ss"
                                 placeholder="结束时间" style={{width: 170}}
                     />
                   )

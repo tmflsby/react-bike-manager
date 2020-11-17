@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { Card } from "antd";
-import FilterForm from "../../components/BaseForm";
+import FilterForm from "../../components/FilterForm";
 import ServiceRequest from "../../serviceRequest";
 
 class BikeMap extends Component {
