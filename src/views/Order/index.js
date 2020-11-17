@@ -134,7 +134,6 @@ class Order extends Component {
         isShowLoading: true
       }
     }).then(res => {
-      console.log(res)
       res.result.item_list.map((item, index) => {
         item.key = index
         return item
@@ -151,7 +150,6 @@ class Order extends Component {
 
   //查询订单
   handleSearch = (info) => {
-    console.log(info);
     ServiceRequest.axios({
       url: '/order/search',
       method: 'get',
@@ -173,7 +171,6 @@ class Order extends Component {
   //打开订单详情页
   openOrderDetails = () => {
     let item = this.state.selectedItem;
-    console.log(item)
 
     if (!item) {
       Modal.info({
@@ -182,13 +179,12 @@ class Order extends Component {
       });
       return;
     }
-    window.open(`/#/admin/order/detail/${item.id}/${item.user_name}/${item.order_sn}`, '_blank')
+    window.open(`/#/common/order/detail/${item.id}/${item.user_name}/${item.order_sn}`, '_blank')
   }
 
   //结束订单-确认车辆信息
   handleConfirm = () => {
     let item = this.state.selectedItem;
-    console.log(item)
 
     if (!item) {
       Modal.info({
@@ -248,7 +244,9 @@ class Order extends Component {
         });
         this.requestList();
       }
-    })
+    }).catch(error => {
+      console.log(error);
+    });
   }
 
   /**
@@ -258,7 +256,6 @@ class Order extends Component {
    * @param {Number} selectedIds
    */
   updateSelectedItem = (selectedRowKeys, selectedRows, selectedIds) => {
-    console.log(123123,selectedRowKeys,selectedRows,selectedIds)
     if (selectedIds) {
       this.setState({
         selectedRowKeys,

@@ -45,7 +45,6 @@ class ETable extends Component {
         selectedRowKeys = [index];
         selectedItem = [record];
       }
-      console.log(selectedRowKeys,selectedItem,selectedIds)
       this.props.updateSelectedItem(selectedRowKeys, selectedItem || {}, selectedIds);
     } else {
       let selectKey = [index];
@@ -59,7 +58,6 @@ class ETable extends Component {
 
   // 选择框变更
   onSelectChange = (selectedRowKeys, selectedRows) => {
-    console.log(selectedRowKeys,selectedRows,this.props)
     let rowSelection = this.props.rowSelection;
     let selectedIds = [];
     let selectedItem = [];
