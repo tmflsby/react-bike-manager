@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { HashRouter , Route, Switch } from "react-router-dom";
+import { HashRouter , Route, Switch, Redirect } from "react-router-dom";
 import App from "./App";
-import Login from "./views/Login";
+import { LoadableLogin } from "./asynLoading/loadable";
 import Admin from "./Admin";
 import Buttons from "./views/UI/Buttons";
 import NoMatch from "./views/NoMatch";
@@ -19,7 +19,7 @@ import BasicTable from "./views/Table/BasicTable";
 import HighTable from "./views/Table/HighTable";
 import RichText from "./views/RichText";
 import City from "./views/City";
-import BikeMap from "./views/BikeMap";
+import { LoadableBikeMap } from "./asynLoading/loadable";
 import Line from "./views/Echarts/Line";
 import Bar from "./views/Echarts/Bar";
 import Pie from "./views/Echarts/Pie";
@@ -40,7 +40,8 @@ class Router extends Component {
                 <Route path='/common/order/detail/:orderId/:user_name/:order_sn' component={OrderDetail} />
               </Common>
             )}/>
-            <Route path='/' render={() =>
+            <Route path='/login' component={LoadableLogin}/>
+            <Route path='/' render={() => (
               <Admin>
                 <Switch>
                   <Route path='/home' component={Home}/>
@@ -58,18 +59,18 @@ class Router extends Component {
                   <Route path='/table/high' component={HighTable}/>
                   <Route path='/rich' component={RichText}/>
                   <Route path='/city' component={City}/>
-                  <Route path='/bikeMap' component={BikeMap}/>
+                  <Route path='/bikeMap' component={LoadableBikeMap}/>
                   <Route path='/charts/line' component={Line}/>
                   <Route path='/charts/bar' component={Bar}/>
                   <Route path='/charts/pie' component={Pie}/>
                   <Route path='/order' component={Order}/>
                   <Route path='/staff' component={Staff}/>
                   <Route path='/permission' component={Permission}/>
+                  <Redirect to="/home"/>
                   <Route component={NoMatch}/>
                 </Switch>
               </Admin>
-            }/>
-            <Route path='/login' component={Login}/>
+            )}/>
           </Switch>
         </App>
       </HashRouter>

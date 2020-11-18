@@ -73,7 +73,8 @@ class ServiceRequest {
         url: options.url,
         method: options.method,
         timeout: 5000,
-        params: (options.data && options.data.params) || ''
+        params: (options.data && options.data.params) || '',
+        data: (options.data && options.data.params) || '',
       }).then(response => {
         console.log(response)
 
