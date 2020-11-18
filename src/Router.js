@@ -26,6 +26,7 @@ import Pie from "./views/Echarts/Pie";
 import Order from "./views/Order";
 import Common from "./Common";
 import OrderDetail from "./views/Order/OrderDetail";
+import Staff from "./views/Staff";
 
 class Router extends Component {
   render() {
@@ -58,6 +59,7 @@ class Router extends Component {
                     <Route path='/admin/charts/bar' component={Bar}/>
                     <Route path='/admin/charts/pie' component={Pie}/>
                     <Route path='/admin/order' component={Order}/>
+                    <Route path='/admin/staff' component={Staff}/>
                     <Route component={NoMatch}/>
                   </Switch>
                 </Admin>

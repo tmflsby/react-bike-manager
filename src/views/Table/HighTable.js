@@ -307,7 +307,9 @@ class HighTable extends Component {
           this.getMockTableListData();
         })
       });
-    })
+    }).catch(error => {
+      console.log(error);
+    });
   }
 
   // 删除操作

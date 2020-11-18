@@ -141,7 +141,9 @@ class BasicTable extends Component {
           this.getMockTableListData();
         })
       });
-    })
+    }).catch(error => {
+      console.log(error);
+    });
   }
 
   onRowClick(record) {
@@ -206,8 +208,8 @@ class BasicTable extends Component {
                  }}
                  onRow={record => {
                    return {
-                     onClick: (event) => {
-                       this.onRowClick(record)
+                     onClick: () => {
+                       this.onRowClick(record);
                      }
                    };
                  }}

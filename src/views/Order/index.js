@@ -145,7 +145,9 @@ class Order extends Component {
           this.requestList();
         })
       });
-    })
+    }).catch(error => {
+      console.log(error);
+    });
   }
 
   //查询订单

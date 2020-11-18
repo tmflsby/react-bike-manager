@@ -221,7 +221,6 @@ class City extends Component {
         isShowLoading: true
       }
     }).then(res => {
-      console.log(res)
       res.result.item_list.map((item, index) => {
         item.key = index
         return item
@@ -232,8 +231,10 @@ class City extends Component {
           this.params.page = current;
           this.requestList();
         })
-      })
-    })
+      });
+    }).catch(error => {
+      console.log(error);
+    });
   }
 
   // 查询城市功能
