@@ -1,10 +1,11 @@
 import React, { Component, Fragment } from "react";
-import { Card, Button, Modal, Form, Select, Input, Tree, message } from "antd";
-import moment from "moment";
+import { Card, Button, Modal, message } from "antd";
 import ETable from "../../components/ETable";
 import ServiceRequest from "../../serviceRequest";
-import menuList from "../../config/menuConfig";
 import pagination from "../../utils/pagination";
+import RoleForm from "./RoleForm";
+import PermEditForm from "./PermEditForm";
+import columns from "./columns";
 
 class Permission extends Component {
   constructor(props) {
@@ -16,41 +17,7 @@ class Permission extends Component {
     this.params = {
       page: 1
     };
-    this.columns = [
-      {
-        title: '角色ID',
-        width: 50,
-        dataIndex: 'id'
-      },
-      {
-        title: '角色名称',
-        width: 100,
-        dataIndex: 'role_name'
-      },
-      {
-        title: '创建时间',
-        width: 200,
-        dataIndex: 'create_time',
-        render: (create_time) => moment(create_time).format('YYYY-MM-DD HH:mm:ss')
-      },
-      {
-        title: '使用状态',
-        width: 100,
-        dataIndex: 'status',
-        render: (status) => status === 1 ? '启用' : '停用'
-      },
-      {
-        title: '授权时间',
-        width: 200,
-        dataIndex: 'authorize_time',
-        render: () => moment().format('YYYY-MM-DD HH:mm:ss')
-      },
-      {
-        title: '授权人',
-        width: 100,
-        dataIndex: 'authorize_user_name'
-      }
-    ];
+    this.columns = columns
   }
 
   componentDidMount() {
@@ -239,106 +206,5 @@ class Permission extends Component {
     );
   }
 }
-
-// 创建角色表单子组件
-class RoleForm extends Component {
-  render() {
-    const formItemLayout = {
-      labelCol: { span: 5 },
-      wrapperCol: { span: 15 }
-    };
-    const { getFieldDecorator } = this.props.form;
-
-    return (
-      <Fragment>
-        <Form layout="horizontal">
-          <Form.Item label="角色名称" {...formItemLayout}>
-            {
-              getFieldDecorator('role_name')(
-                <Input type="text" placeholder="请输入角色名称" />
-              )
-            }
-          </Form.Item>
-          <Form.Item label="状态" {...formItemLayout}>
-            {
-              getFieldDecorator('state')(
-                <Select>
-                  <Select.Option value={1}>开启</Select.Option>
-                  <Select.Option value={0}>关闭</Select.Option>
-                </Select>
-              )
-            }
-          </Form.Item>
-        </Form>
-      </Fragment>
-    );
-  }
-}
-
-RoleForm = Form.create()(RoleForm);
-
-// 权限设置表单子组件
-class PermEditForm extends Component {
-  // 遍历、展开所有树形节点
-  renderTreeNodes = data => data.map((item) => {
-    if (item.children) {
-      return (
-        <Tree.TreeNode title={item.title} key={item.key} dataRef={item}>
-          {this.renderTreeNodes(item.children)}
-        </Tree.TreeNode>
-      );
-    } else {
-      return <Tree.TreeNode {...item}/>
-    }
-  });
-
-  onCheck = (checkedKeys) => {
-    this.props.patchMenuInfo(checkedKeys);
-  }
-
-  render() {
-    const formItemLayout = {
-      labelCol: { span: 5 },
-      wrapperCol: { span: 15 }
-    };
-    const { getFieldDecorator } = this.props.form;
-    const detail_Info = this.props.detailInfo;
-    const menu_Info = this.props.menuInfo;
-
-    return (
-      <Fragment>
-        <Form layout="horizontal">
-          <Form.Item label="角色名称" {...formItemLayout}>
-            <Input type="text" disabled placeholder={detail_Info.role_name}/>
-          </Form.Item>
-          <Form.Item label="状态" {...formItemLayout}>
-            {
-              getFieldDecorator('status', {
-                initialValue: "1"
-              })(
-                <Select>
-                  <Select.Option value="1">启用</Select.Option>
-                  <Select.Option value="0">停用</Select.Option>
-                </Select>
-              )
-            }
-          </Form.Item>
-        </Form>
-        <Tree checkable defaultExpandAll
-              onCheck={(checkedKeys) => {
-                this.onCheck(checkedKeys);
-              }}
-              checkedKeys={menu_Info}
-        >
-          <Tree.TreeNode title="平台权限" key="platform_all">
-            {this.renderTreeNodes(menuList)}
-          </Tree.TreeNode>
-        </Tree>
-      </Fragment>
-    )
-  }
-}
-
-PermEditForm = Form.create()(PermEditForm);
 
 export default Permission;

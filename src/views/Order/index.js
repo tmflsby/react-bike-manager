@@ -1,9 +1,12 @@
 import React, { Component } from "react";
-import { Card, Button, Form, Modal, message } from "antd";
+import { Card, Button, Modal, message } from "antd";
 import FilterForm from "../../components/FilterForm";
 import ETable from "../../components/ETable";
 import ServiceRequest from "../../serviceRequest";
 import pagination from "../../utils/pagination";
+import FinishOrderForm from "./FinishOrderForm";
+import columns from "./columns";
+import orderFormList from "./orderFormList";
 import "../../style/common.less"
 
 class Order extends Component {
@@ -16,105 +19,8 @@ class Order extends Component {
     this.params = {
       page: 1
     };
-    this.columns = [
-      {
-        title: '订单编号',
-        dataIndex: 'order_sn',
-        width: 150
-      },
-      {
-        title: '车辆编号',
-        dataIndex: 'bike_sn',
-        width: 150
-      },
-      {
-        title: '用户名',
-        align: 'center',
-        dataIndex: 'user_name',
-        width: 80
-      },
-      {
-        title: '手机号',
-        dataIndex: 'mobile',
-        width: 150
-      },
-      {
-        title: '里程',
-        dataIndex: 'distance',
-        align: 'center',
-        width: 80,
-        render: (distance) => distance / 1000 + ' km'
-      },
-      {
-        title: '行驶时长',
-        dataIndex: 'total_time',
-        align: 'center',
-        width: 100
-      },
-      {
-        title: '状态',
-        dataIndex: 'status',
-        width: 100,
-        align: 'center',
-        render: (status) => status === 1 ? '进行中' : '行程结束'
-      },
-      {
-        title: '开始时间',
-        dataIndex: 'start_time',
-        width: 150
-      },
-      {
-        title: '结束时间',
-        dataIndex: 'end_time',
-        width: 150
-      },
-      {
-        title: '订单金额',
-        dataIndex: 'total_fee',
-        align: 'center',
-        width: 100
-      },
-      {
-        title: '实付金额',
-        dataIndex: 'user_pay',
-        width: 100,
-        align: 'center'
-      }
-    ];
-    this.orderFormList = [
-      {
-        type: 'SELECT',
-        label: '城市',
-        field: 'city_id',
-        initialValue: '0',
-        width: 100,
-        placeholder: '全部',
-        list: [
-          { id: '0', name: '全部' },
-          { id: '1', name: '北京' },
-          { id: '2', name: '天津' },
-          { id: '3', name: '上海' },
-          { id: '4', name: '深圳' }
-        ]
-      },
-      {
-        type: '时间查询',
-        field: 'time'
-      },
-      {
-        type: 'SELECT',
-        label: '订单状态',
-        field: 'order_status',
-        initialValue: '0',
-        width: 120,
-        placeholder: '全部',
-        list: [
-          { id: '0', name: '全部' },
-          { id: '1', name: '进行中' },
-          { id: '2', name: '行程结束' }
-        ]
-      }
-    ];
+    this.columns = columns;
+    this.orderFormList = orderFormList;
     this.handleSearch = this.handleSearch.bind(this);
   }
 
@@ -312,35 +218,5 @@ class Order extends Component {
     );
   }
 }
-
-//结束订单子组件
-class FinishOrderForm extends Component {
-  render() {
-    const { bike_sn, battery, start_time, location } = this.props;
-    const formItemLayout = {
-      labelCol: { span: 8 },
-      wrapperCol: { span: 16 }
-    };
-
-    return (
-      <Form layout="horizontal">
-        <Form.Item {...formItemLayout} label="车辆编号">
-          {bike_sn}
-        </Form.Item>
-        <Form.Item {...formItemLayout} label="剩余电量">
-          {battery + '%'}
-        </Form.Item>
-        <Form.Item {...formItemLayout} label="行程开始时间">
-          {start_time}
-        </Form.Item>
-        <Form.Item {...formItemLayout} label="当前位置">
-          {location}
-        </Form.Item>
-      </Form>
-    )
-  }
-}
-
-FinishOrderForm = Form.create()(FinishOrderForm)
 
 export default Order;
